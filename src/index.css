@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #A5DEFF;
+  --primary-dark: #7CCBFF;
+  --primary-light: #D0EEFF;
+  --secondary: #FF90E8;
+  --accent: #FFD36A;
+  --background: #F8FCFF;
+  --text: #103045;
+  --success: #00C853;
+  --warning: #FFD36A;
+  --error: #FF6B6B;
+}
+
+/* Mobile-first base styles */
+@layer base {
+  html {
+    @apply antialiased text-base;
+  }
+  
+  body {
+    @apply bg-background text-text font-sans overflow-x-hidden;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Optimize text rendering */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-white transition-transform active:scale-95;
+  }
+
+  .btn-primary {
+    @apply bg-primary border-2 border-text shadow-[2px_2px_0px_0px_rgba(16,48,69,1)];
+  }
+
+  .btn-secondary {
+    @apply bg-secondary border-2 border-text shadow-[2px_2px_0px_0px_rgba(16,48,69,1)];
+  }
+
+  .card {
+    @apply bg-white rounded-2xl md:rounded-3xl border-2 border-text shadow-[2px_2px_0px_0px_rgba(16,48,69,1)] p-4 md:p-6;
+  }
+
+  .input {
+    @apply w-full px-3 py-2 md:px-4 md:py-3 rounded-xl border-2 border-text focus:outline-none focus:ring-2 focus:ring-primary;
+  }
+
+  /* Mobile grid optimizations */
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6;
+  }
+
+  /* Mobile-specific padding to prevent bottom bar overlap */
+  .mobile-pb-safe {
+    @apply pb-[80px] md:pb-0;
+  }
+}
+
+/* Safe area and mobile optimizations */
+@supports (padding: max(0px)) {
+  .pb-safe {
+    padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+  }
+  
+  .pt-safe {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+
+  /* Content area safe spacing */
+  .content-safe-area {
+    padding-bottom: max(5rem, env(safe-area-inset-bottom) + 4rem);
+  }
+}
+
+/* Optimize scrolling */
+.smooth-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Reduce layout shift */
+.content-visibility {
+  content-visibility: auto;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .main-content {
+    @apply pb-[calc(4rem+env(safe-area-inset-bottom))];
+  }
+  
+  .modal-mobile {
+    @apply fixed inset-0 z-50 m-0 rounded-none;
+    height: 100dvh;
+  }
+}
